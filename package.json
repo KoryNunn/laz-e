@@ -1,0 +1,23 @@
+{
+  "name": "laz-e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test",
+    "build": "browserify test > ./test/index.browser.js"
+  },
+  "keywords": [],
+  "author": "Kory Nunn <knunn187@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "dom-lite": "^0.1.6",
+    "tape": "^3.0.1"
+  },
+  "dependencies": {
+    "wait-for": "^2.1.1"
+  }
+}
