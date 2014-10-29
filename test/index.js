@@ -51,3 +51,24 @@ test('create DOM async with error', function(t){
         t.equal(error, 'failed');
     });
 });
+
+if(typeof document === 'undefined'){
+
+    var fs = require('fs');
+
+    test('create DOM with async fs call', function(t){
+        t.plan(5);
+
+        e('div',
+            fs.readFile.bind(fs, __dirname + '/test.txt')
+        )
+        (function(error, element){
+            t.notOk(error);
+            t.ok(element);
+            t.equal(element.tagName, 'DIV');
+            t.equal(element.childNodes.length, 1);
+            t.equal(element.outerHTML, '<div>totes foo</div>');
+        });
+    });
+
+}

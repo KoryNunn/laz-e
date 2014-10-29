@@ -18,7 +18,14 @@ laz-e has the same syntax as [crel](https://www.npmjs.org/package/crel) except t
 var dom = e('div',
         e('h1', 'Page heading'),
         e('section', {'class': 'main'}
-            'Welcome to my awesome webpage!'
+
+            'Welcome to my awesome webpage!',
+
+            function(callback){ // An asynchronous 'child'
+                setTimeout(function(){
+                    e('span')(callback); // return a span after 100ms
+                },100);
+            }
         )
     );
 
@@ -40,7 +47,11 @@ var domLite = require('dom-lite'),
 var dom = e('div',
         e('h1', 'Page heading'),
         e('section', {'class': 'main'}
-            'Welcome to my awesome webpage!'
+            'Welcome to my awesome webpage!',
+
+            fs.readFile.bind(fs, './foo.txt'), // Load a text file asyncronously.
+
+            fs.readFile.bind(fs, './bar.txt') // Load another text file asyncronously in parallel to the first one.
         )
     );
 
