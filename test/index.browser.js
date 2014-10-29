@@ -80,6 +80,7 @@ module.exports = function(document){
             insert(placeholder, reference);
             child(after(function(error, childElement){
                 if(error){
+                    element.removeChild(placeholder);
                     return;
                 }
                 insert(childElement, placeholder);
@@ -1819,6 +1820,7 @@ module.exports = function waitFor(done){
     }
 };
 },{}],16:[function(require,module,exports){
+(function (__dirname){
 var domlite = require('dom-lite'),
     test = require('tape'),
     e = require('../')(typeof document !== 'undefined' ? document : domlite.document);
@@ -1826,13 +1828,75 @@ var domlite = require('dom-lite'),
 test('create DOM sync', function(t){
     t.plan(3);
 
-    e('div')(function(error, element){
+    e('div')
+    (function(error, element){
         t.notOk(error);
         t.ok(element);
         t.equal(element.tagName, 'DIV');
     });
 });
-},{"../":1,"dom-lite":2,"tape":3}],17:[function(require,module,exports){
+
+test('create DOM async', function(t){
+    t.plan(4);
+
+    e('div',
+        function(callback){
+            Date.now(),
+            setTimeout(function(){
+                e('span', Date.now())(callback);
+            },100);
+        }
+    )
+    (function(error, element){
+        t.notOk(error);
+        t.ok(element);
+        t.equal(element.tagName, 'DIV');
+        t.equal(element.firstChild.tagName, 'SPAN');
+    });
+});
+
+test('create DOM async with error', function(t){
+    t.plan(5);
+
+    e('div',
+        function(callback){
+            Date.now(),
+            setTimeout(function(){
+                callback('failed');
+            },100);
+        }
+    )
+    (function(error, element){
+        t.ok(error);
+        t.ok(element);
+        t.equal(element.tagName, 'DIV');
+        t.equal(element.childNodes.length, 0);
+        t.equal(error, 'failed');
+    });
+});
+
+if(typeof document === 'undefined'){
+
+    var fs = require('fs');
+
+    test('create DOM with async fs call', function(t){
+        t.plan(5);
+
+        e('div',
+            fs.readFile.bind(fs, __dirname + '/test.txt')
+        )
+        (function(error, element){
+            t.notOk(error);
+            t.ok(element);
+            t.equal(element.tagName, 'DIV');
+            t.equal(element.childNodes.length, 1);
+            t.equal(element.outerHTML, '<div>totes foo</div>');
+        });
+    });
+
+}
+}).call(this,"/test")
+},{"../":1,"dom-lite":2,"fs":17,"tape":3}],17:[function(require,module,exports){
 
 },{}],18:[function(require,module,exports){
 /*!

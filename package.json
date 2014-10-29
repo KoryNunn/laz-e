@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node test",
-    "build": "browserify test > ./test/index.browser.js"
+    "build": "browserify test > ./test/index.browser.js; browserify example > ./example/index.browser.js"
   },
   "keywords": [],
   "author": "Kory Nunn <knunn187@gmail.com>",
