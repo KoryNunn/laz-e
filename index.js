@@ -88,6 +88,9 @@ module.exports = function(document){
         }
 
         function insert(child, reference){
+            if(child == null){
+                return;
+            }
             if(isType(child, fn)){
                 asyncAppend(child, reference);
             } else if (isArray(child)) {
@@ -105,10 +108,6 @@ module.exports = function(document){
         }else{
             for(; childIndex < argumentsLength; ++childIndex){
                 child = args[childIndex];
-
-                if(child == null){
-                    continue;
-                }
 
                 insert(child);
             }
@@ -139,11 +138,11 @@ module.exports = function(document){
     e['isNode'] = isNode;
     e.document = document;
     e.html = function(html){
-        var x = document.createElement('temp');
-        x.toString = function(){
+        var tempElement = document.createElement('temp');
+        tempElement.toString = function(){
             return html;
         };
-        return x;
+        return tempElement;
     };
     return e;
 };
