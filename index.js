@@ -115,13 +115,17 @@ module.exports = function(document){
 
         for(var key in settings){
             if(!attributeMap[key]){
-                element.setAttribute(key, settings[key] == null ? '' : settings[key]);
+                settings[key] == null ? 
+                    element.removeAttribute(key) :
+                    element.setAttribute(key, settings[key]);
             }else{
                 var attr = e.attrMap[key];
                 if(typeof attr === fn){
                     attr(element, settings[key]);
                 }else{
-                    element.setAttribute(attr, settings[key] == null ? '' : settings[key]);
+                    settings[key] == null ? 
+                        element.removeAttribute(attr) :
+                        element.setAttribute(attr, settings[key]);
                 }
             }
         }
