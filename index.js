@@ -114,18 +114,22 @@ module.exports = function(document){
         }
 
         for(var key in settings){
+            var value = settings[key];
+            if(value && typeof value === 'object'){
+                value = JSON.stringify(value);
+            }
             if(!attributeMap[key]){
                 settings[key] == null ? 
                     element.removeAttribute(key) :
-                    element.setAttribute(key, settings[key]);
+                    element.setAttribute(key, value);
             }else{
                 var attr = e.attrMap[key];
                 if(typeof attr === fn){
-                    attr(element, settings[key]);
+                    attr(element, value);
                 }else{
-                    settings[key] == null ? 
+                    value == null ? 
                         element.removeAttribute(attr) :
-                        element.setAttribute(attr, settings[key]);
+                        element.setAttribute(attr, value);
                 }
             }
         }

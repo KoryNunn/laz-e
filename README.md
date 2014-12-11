@@ -13,6 +13,8 @@ var e = require('laz-e')(document);
 
 laz-e has the same syntax as [crel](https://www.npmjs.org/package/crel) except that it returns a function, that takes a callback.
 
+also, any objects in the attributes will be JSON.stringified before being assigned as attributes.
+
 ```javascript
 
 var dom = e('div',
