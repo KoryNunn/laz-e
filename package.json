@@ -1,9 +1,10 @@
 {
   "name": "laz-e",
   "version": "1.2.0",
-  "description": "",
+  "description": "asynchronously create DOM with a nice syntax.",
   "main": "index.js",
   "directories": {
+    "example": "example",
     "test": "test"
   },
   "scripts": {
@@ -19,5 +20,13 @@
   },
   "dependencies": {
     "wait-for": "^2.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KoryNunn/laz-e.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KoryNunn/laz-e/issues"
+  },
+  "homepage": "https://github.com/KoryNunn/laz-e#readme"
 }
