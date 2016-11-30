@@ -119,7 +119,7 @@ module.exports = function(document){
                 value = JSON.stringify(value);
             }
             if(!attributeMap[key]){
-                settings[key] == null ? 
+                settings[key] == null ?
                     element.removeAttribute(key) :
                     element.setAttribute(key, value);
             }else{
@@ -127,7 +127,7 @@ module.exports = function(document){
                 if(typeof attr === fn){
                     attr(element, value);
                 }else{
-                    value == null ? 
+                    value == null ?
                         element.removeAttribute(attr) :
                         element.setAttribute(attr, value);
                 }
@@ -146,6 +146,9 @@ module.exports = function(document){
     e['isNode'] = isNode;
     e.document = document;
     e.html = function(html){
+        if(html == null){
+            return;
+        }
         var tempElement = document.createElement('temp');
         tempElement.toString = function(){
             return html;
